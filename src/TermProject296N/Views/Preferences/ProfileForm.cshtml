@@ -1,0 +1,31 @@
+﻿@model TermProject296N.Models.ViewModel.ProfileViewModel
+
+@{ 
+    ViewBag.Title = "User Profile";
+}
+
+<h2>User Profile</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="ProfileForm" method="post">
+    <input asp-for="UserID" type="hidden" />
+
+    <p>
+        <label asp-for="Gamertag"></label><br />
+        <input asp-for="Gamertag" />
+        <span asp-validation-for="Gamertag" class="text-danger"></span>
+    </p>
+
+    <p>
+        <label asp-for="PSNName"></label><br />
+        <input asp-for="PSNName" />
+        <span asp-validation-for="PSNName" class="text-danger"></span>
+    </p>
+
+    <p>
+        <label asp-for="FriendCode"></label><br />
+        <input asp-for="FriendCode" />
+        <span asp-validation-for="FriendCode" class="text-danger"></span>
+    </p>
+
+    <button type="submit">Login</button>
+</form>

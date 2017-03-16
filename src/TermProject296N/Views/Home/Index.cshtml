@@ -1,0 +1,12 @@
+﻿@model TermProject296N.Models.ViewModel.UserViewModel
+@{ 
+    ViewData["Title"] = "Home";
+}
+
+@if (!Model.Authenticated) {
+@Html.ActionLink("Login", "Login", "Authentication")
+
+@Html.ActionLink("Register", "Register", "Authentication")
+} else {
+    <p>Thanks for logging in @Model.Username</p>
+}

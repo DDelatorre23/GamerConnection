@@ -1,0 +1,17 @@
+﻿@model TermProject296N.Models.ViewModel.UserViewModel
+
+@if (Model.Authenticated) {
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, @Model.Username <b class="caret"></b></a>
+<ul class="dropdown-menu">
+    <li><a href="#"><i class="icon-cog"></i> Preferences</a></li>
+    <li><a href="#"><i class="icon-envelope"></i> Contact Support</a></li>
+    <li class="divider"></li>
+    <li><a href="/auth/logout"><i class="icon-off"></i> Logout</a></li>
+</ul>
+    } else {
+<a href = "#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Guest <b class="caret"></b></a>
+<ul class="dropdown-menu">
+    <li><a asp-controller="Authentication" asp-action="Login"> <i class="glyphicon-log-in"></i> Login</a></li>
+    <li><a asp-controller="Authentication" asp-action="Register"><i class="glyphicon-registration-mark"></i> Register</a></li>
+</ul>
+}
