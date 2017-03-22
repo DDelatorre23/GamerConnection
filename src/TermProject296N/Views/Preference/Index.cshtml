@@ -1,0 +1,80 @@
+﻿@model RequestViewModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="page-header">
+                <h1>Current Requests</h1>
+            </div>
+            <p>Below you will find a list of all current active and filled requests. Please use the search bar to find the specific 
+               request that you are looking for.
+            </p>
+
+            <p>Please submit your user names for your gamer profiles. You can find the form to enter those 
+                <a asp-action="ProfileForm" asp-controller="Preference">HERE</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Search</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4">
+            <input type="search" id="search" value="" class="form-control">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <form asp-action="Index" method="post">
+                <table class="table" id="table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Game Requested</th>
+                            <th>Platform</th>
+                            <th>Date Requested</th>
+                            <th>Match Found?</th>
+                            <th>Date Filled</th>
+                            <th>Partner's UserName</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (PartnerRequest p in Model.Requests) {
+
+                            <tr>
+                                <td>@p.SelectedGame.Title</td>
+                                <td>@p.SelectedGame.Platform</td>
+                                <td>@p.RequestDate</td>
+                                @if (@p.HasBeenMatched) {
+                                    <td>@p.HasBeenMatched</td>
+                                    <td>@p.RequestCompleted</td>
+                                    @if (p.SelectedGame.Platform == "Xbox One") {
+                                        <td>@p.MatchedPartner.Xbox_Gamertag</td>
+                                    } else {
+                                        if (p.SelectedGame.Platform == "Playstation 4") {
+                                            <td>@p.MatchedPartner.PSN_UserName</td>
+                                        } else {
+                                            if (p.SelectedGame.Platform == "Nintendo 3DS") {
+                                                <td>@p.MatchedPartner.Xbox_Gamertag</td>
+
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    <td>@p.HasBeenMatched</td>
+                                    <td>Request pending...</td>
+                                    <td>No User Found</td>
+                                }
+                                <td>@Html.ActionLink("Delete", "Delete", "Preference", p, null)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <hr>
+            </form>
+        </div>
+    </div>
+</div>

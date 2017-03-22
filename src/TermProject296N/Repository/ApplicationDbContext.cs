@@ -8,8 +8,6 @@ namespace TermProject296N.Repository
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) 
              : base(options) { }
 
-       // public ApplicationDbContext() : base() { }
-
         public DbSet<Game> Games { get; set; }
         public DbSet<PartnerRequest> Requests { get; set; }
 

@@ -8,6 +8,7 @@ namespace TermProject296N.Models.ViewModel
     public class UserViewModel
     {
         public string Username { get; set; }
+        public List<User> Users { get; set; }
 
         public bool Authenticated { get; set; }
     }

@@ -29,29 +29,46 @@ namespace TermProject296N.Repository
         public List<PartnerRequest> GetAllFilledRequests() {
             return context.Requests.Where(f => f.HasBeenMatched == true)
                 .Include(m => m.Requester)
+                .Include(g => g.SelectedGame)
                 .ToList();
         }
 
         public IEnumerable<PartnerRequest> GetAllPartnerRequests() {
-            return context.Requests;
+            return context.Requests
+                .Include(m => m.Requester)
+                .Include(p => p.MatchedPartner)
+                .Include(g => g.SelectedGame)
+                ;
         }
 
         public List<PartnerRequest> GetAllUnfilledRequests() {
             return context.Requests.Where(f => f.HasBeenMatched == false)
                 .Include(m => m.Requester)
+                .Include(g => g.SelectedGame)
                 .ToList();
+
         }
 
-        public PartnerRequest GetRequestByUserID(int userID) {
-            return context.Requests.Where(i => i.Requester.UserID == userID)
+        public List<PartnerRequest> GetUnfilledNotCreatedByUser(string username) {
+            return context.Requests.Where(u => u.HasBeenMatched != true &&
+                                                u.Requester.UserName != username)
+                                                .Include(m => m.Requester)
+                                                .Include(g => g.SelectedGame).ToList();
+        }
+
+        public List<PartnerRequest> GetRequestByUser(string username) {
+            return context.Requests.Where(i => i.Requester.UserName == username)
                 .Include(m => m.Requester)
-                .Single();
+                .Include(p => p.MatchedPartner)
+                .Include(g => g.SelectedGame)
+                .ToList()
+                ;
                 
         }
 
         public List<PartnerRequest> GetRequestsByGame(Game game) {
             return context.Requests.Where(g => g.SelectedGame == game)
-                .Include(m => m.Requester)
+                .Include(m => m.Requester).Include(g => g.SelectedGame)
                 .ToList();
         }
 

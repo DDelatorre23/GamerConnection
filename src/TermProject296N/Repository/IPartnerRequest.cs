@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using TermProject296N.Models;
 namespace TermProject296N.Repository
 {
-    interface IPartnerRequest
+   public interface IPartnerRequest
     {
         IEnumerable<PartnerRequest> GetAllPartnerRequests();
 
@@ -15,7 +15,9 @@ namespace TermProject296N.Repository
 
         List<PartnerRequest> GetAllFilledRequests();
 
-        PartnerRequest GetRequestByUserID(int userID);
+        List<PartnerRequest> GetUnfilledNotCreatedByUser(string username);
+
+        List<PartnerRequest> GetRequestByUser(string username);
 
         void Create(PartnerRequest request);
 

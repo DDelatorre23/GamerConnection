@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using TermProject296N.Models;
 using TermProject296N.Models.ViewModel;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 // TODO: still needs testing and needs to configure the Startup.cs file
 namespace TermProject296N.Controllers
@@ -27,6 +28,7 @@ namespace TermProject296N.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel vm) {
             if (ModelState.IsValid) {
                 User user = new User {
@@ -39,7 +41,7 @@ namespace TermProject296N.Controllers
 
                 if (result.Succeeded) {
                     await userManager.AddToRoleAsync(user, "Member");
-
+                    TempData["message"] = $"Success! Welcome to Gamer Connection, {user.UserName}!";
                     return RedirectToAction("Index", "Home"); // TODO: add roles when user register
 
                 } else {
@@ -52,10 +54,12 @@ namespace TermProject296N.Controllers
             return View(vm);
         }
 
+        [AllowAnonymous]
         public ViewResult Login() {
             return View(new LoginViewModel());
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm) {
             if (ModelState.IsValid) {
@@ -66,6 +70,7 @@ namespace TermProject296N.Controllers
                             await signInManager.PasswordSignInAsync(
                                 user, vm.Password, false, false);
                     if (result.Succeeded) {
+                        TempData["message"] = $"Welcome back, {user.UserName}";
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -73,6 +78,11 @@ namespace TermProject296N.Controllers
                     "Invalid user or password");
             }
             return View(vm);
+        }
+
+        public async Task<IActionResult> Logout() {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

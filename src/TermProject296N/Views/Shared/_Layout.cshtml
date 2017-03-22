@@ -6,14 +6,52 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewData["Title"] - Gamer Connection</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/lib/css/login.css" />
 
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
-
+    <script src="~/lib/javascript/searching.js" language="jquery" type="text/javascript"></script>
+    <script src="~/lib/javascript/jquery.searchable.js"></script>
+    <script src="~/lib/javascript/jquery.searchable-ie.js"></script>
+    <style>
+        .navbar {
+            margin-bottom: 0;
+            border-radius: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Gamer<span class="glyphicon glyphicon-flash"></span>Connection</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Game" asp-action="Index">Games</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    @if (!User.Identity.IsAuthenticated) {
+                        <li><a asp-area="" asp-controller="Authentication" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a asp-area="" asp-controller="Authentication" asp-action="Register">Register</a></li>
+                    } else {
+                        <li><a asp-action="Index" asp-controller="Preference"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
+                        <li><a asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a></li>
+
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+    @*<div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -25,17 +63,26 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a asp-area="" asp-controller="User" asp-action="Index">Home</a></li>
-                @*<li><a asp-area="" asp-controller="News" asp-action="Index">News</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="History">History</a></li>
-                <li><a asp-area="" asp-controller="Map" asp-action="Index">Map</a></li>
-                <li><a asp-area="" asp-controller="Member" asp-action="Index">Members</a></li>*@
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-area="" asp-controller="Game" asp-action="Index">Games</a></li>
+                @if(!User.Identity.IsAuthenticated) {
+                <li><a asp-area="" asp-controller="Authentication" asp-action="Login">Login</a></li>
+                <li><a asp-area="" asp-controller="Authentication" asp-action="Register">Register</a></li>
+                } else {
+                    <li><a asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a></li>
+
+                }
+
             </ul>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+    </div>*@
+    <div class="panel-body">
+        @if (TempData["message"] != null) {
+            <div class="alert alert-success">@TempData["message"]</div>
+        }
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TermProject296N.Models;
 using TermProject296N.Repository;
+using TermProject296N.Models.ViewModel;
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace TermProject296N.Controllers
@@ -21,14 +22,10 @@ namespace TermProject296N.Controllers
         // GET: /<controller>/
         public ViewResult Index()
         {
+            GameViewModel vm = new GameViewModel();
+            vm.Games = repository.GetAllGames().ToList();
 
-            return View(repository.GetAllGames().ToList());
+            return View(vm);
         }
     }
 }
-// TODO: Game view model
-//TODO: add actions to create a request.
-//TODO: possibly create a view component for each game for nicer viewing. 
-
-
-//TODO: delete migrations and update the two databases so that the right entities are in the right DB

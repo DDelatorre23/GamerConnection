@@ -35,8 +35,10 @@ namespace TermProject296N {
                  .AddEntityFrameworkStores<AppIdentityDbContext>();
 
             services.AddMvc();
+            services.AddSession();
             services.AddTransient<IUser, UserRepository>();
             services.AddTransient<IGame, GameRepository>();
+            services.AddTransient<IPartnerRequest, PartnerRequestRepository>();
             //services.AddTransient<IBookRepository, BookRepository>();
         }
 
@@ -50,6 +52,7 @@ namespace TermProject296N {
             }
 
             app.UseIdentity();
+            app.UseSession();
             app.UseStatusCodePages();
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();

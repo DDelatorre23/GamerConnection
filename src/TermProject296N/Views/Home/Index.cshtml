@@ -1,12 +1,51 @@
-﻿@model TermProject296N.Models.ViewModel.UserViewModel
-@{ 
+﻿
+@{
     ViewData["Title"] = "Home";
 }
 
-@if (!Model.Authenticated) {
-@Html.ActionLink("Login", "Login", "Authentication")
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1>Gamer Connection</h1>
+        <p>No More Gaming Alone</p>
+    </div>
+</div>
 
-@Html.ActionLink("Register", "Register", "Authentication")
-} else {
-    <p>Thanks for logging in @Model.Username</p>
-}
+<div class="container-fluid text-center">
+    <div class="row content">
+        <div class="col-sm-2 sidenav">
+          
+        </div>
+        <div class="col-sm-8 text-left">
+            <h1>Welcome</h1>
+            <p>Hey there! Tired of gaming alone? Are you sick of your friends not playing the newest and best games out there?
+               Well look no further. Here at Gamer Connection, there is always someone out there looking for people level up with, take on the 
+               toughest bosses, and enjoy countless hours of navigating through the wonderous open worlds of video games.  
+            </p>
+            <p>
+                So if you're ready to put your lone ranger days behind you and step out on the battle field with new squad mates then you've come to
+                the right place!
+            </p>
+            <p>Checkout below, where we have some of the hottest new titles. Or you can check out the game page for a wide selection 
+               of games to choose from. Game on!
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        @foreach (Game g in Model.Games) {
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">@g.Title.ToUpper()</div>
+                <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
+                <div class="panel-footer">@Html.ActionLink("Request Partner", "Create", "Request", g, null)</div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+        <footer class="container-fluid text-center">
+            <small></small>
+        </footer>
